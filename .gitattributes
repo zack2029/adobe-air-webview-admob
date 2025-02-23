@@ -1,0 +1,18 @@
+# Macro for all binary files that should use Git LFS.
+[attr]lfs -text filter=lfs diff=lfs merge=lfs
+
+# Default to auto-normalized line endings.
+* text=auto
+
+# Archives
+*.zip lfs
+
+# Executables
+*.swf lfs
+*.air lfs
+*.ipa lfs
+*.apk lfs
+*.jar lfs
+*.ane lfs
+*.swc lfs
+*.so lfs

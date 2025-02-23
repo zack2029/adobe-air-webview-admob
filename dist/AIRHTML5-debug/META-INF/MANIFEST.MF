@@ -1,0 +1,143 @@
+Manifest-Version: 1.0
+
+Name: AndroidManifest.xml
+SHA1-Digest: MGaob1NdwxUwnnnzQrhE7fzu6H8=
+
+Name: assets/AIRHTML5.swf
+SHA1-Digest: ZERZ5XoMYp8Naf0sx5BJ4i3W0/Y=
+
+Name: assets/META-INF/AIR/application.xml
+SHA1-Digest: 5+BZBnrpzUwAlA9x3nFdMfpYHyI=
+
+Name: assets/icons/icon_192.png
+SHA1-Digest: xINVxvUn0Uif0vQeWAE393aB1GQ=
+
+Name: classes.dex
+SHA1-Digest: hBsQkuguoXP/V5FgGzJ6Nxc0GMI=
+
+Name: lib/armeabi-v7a/libCore.so
+SHA1-Digest: KB6B0Mg9HavbsH1u1nzG5bJ/tcM=
+
+Name: lib/armeabi-v7a/libc++.so
+SHA1-Digest: ORQoJzlqOoKGg3f3XzztT8vqfKM=
+
+Name: lib/armeabi-v7a/libc++_shared.so
+SHA1-Digest: VKYVldb+4XavmqZf8ER0btFEYjM=
+
+Name: lib/armeabi-v7a/libysshared.so
+SHA1-Digest: 9PuU4TCBHVyTZ9HMDlzHyLI0OLg=
+
+Name: res/drawable-hdpi-v4/home.png
+SHA1-Digest: A+rx8jiuPWqssDz0rtsU3PWl3CA=
+
+Name: res/drawable-nodpi-v4/splash_landscape.png
+SHA1-Digest: khG3zJOaFC+EkbzkW4eIXNs5QlI=
+
+Name: res/drawable-nodpi-v4/splash_portrait.png
+SHA1-Digest: omWRwwNvoi3YkV2bep9vpLevkAs=
+
+Name: res/drawable-xhdpi-v4/icon.png
+SHA1-Digest: hxbqSGIyhWNwlLIZWKL5V6U3JUQ=
+
+Name: res/drawable-xhdpi-v4/ouya_icon.png
+SHA1-Digest: lBdDKlflgsODpRToCNUMAAagS48=
+
+Name: res/drawable-xxxhdpi-v4/icon.png
+SHA1-Digest: WLTVZGSC7e2bSL/cVhwWlP3Pzfk=
+
+Name: res/drawable/air_72px_mobile_eula.png
+SHA1-Digest: 9MOqUE6m6bqlLb54/RUCOvCMUh0=
+
+Name: res/drawable/ic_adobe_logo.xml
+SHA1-Digest: /DC4UdXDbbvuPGzG3Wjrez573+s=
+
+Name: res/drawable/ic_adobe_logo_1.xml
+SHA1-Digest: qdf2sV574x3zBE0HKccAh7B0E30=
+
+Name: res/drawable/ic_adobe_logo_2.xml
+SHA1-Digest: ZFIz1z8MiqmofDVVrAEubcg01V8=
+
+Name: res/drawable/ic_adobe_logo_3.xml
+SHA1-Digest: w6QmTWXm1BsO1eHMwXlIf1Tn9fs=
+
+Name: res/drawable/ic_adobe_tm_logo.xml
+SHA1-Digest: oyK7KhHmKN7WG3mLt6iE2tu54aI=
+
+Name: res/drawable/ic_harman_logo.xml
+SHA1-Digest: wZcM/yBMZdC9Mxd6IjRfU6jov3A=
+
+Name: res/drawable/mp_warning_32x32_n.png
+SHA1-Digest: eCFwTk+zmvIeM+w4WQEnsknkfNI=
+
+Name: res/drawable/splash_landscape.png
+SHA1-Digest: khG3zJOaFC+EkbzkW4eIXNs5QlI=
+
+Name: res/drawable/splash_portrait.png
+SHA1-Digest: omWRwwNvoi3YkV2bep9vpLevkAs=
+
+Name: res/layout-land/splash_screen_layout.xml
+SHA1-Digest: jQw1oeXcJA7FzW0WC3QN1SbcjU0=
+
+Name: res/layout/activity_static_page.xml
+SHA1-Digest: dVCuLahNdU/qfUtAfc/ibQUcEbg=
+
+Name: res/layout/expandable_chooser_row.xml
+SHA1-Digest: PzWhclPR9pqEXElASoni+fuAj8g=
+
+Name: res/layout/expandable_multiple_chooser_row.xml
+SHA1-Digest: OaLGZ2W1E38ErTdFrijgot2q67A=
+
+Name: res/layout/main.xml
+SHA1-Digest: +iNWgRE5K+ZZfvxv/WLysu4OX7w=
+
+Name: res/layout/multiple_file_selection_panel.xml
+SHA1-Digest: XqKczhXscejuhED6kKhxQRvwREI=
+
+Name: res/layout/splash_screen_layout.xml
+SHA1-Digest: KWPql/7N9b2EI2+SIKfSbhVvt7w=
+
+Name: res/layout/ssl_certificate_warning.xml
+SHA1-Digest: he4Mo+S9WA1IuksLscAj8jBodCM=
+
+Name: res/mipmap-hdpi-v4/icon.png
+SHA1-Digest: rKE8dILL7OOCFCIwdW5emoQrZYo=
+
+Name: res/mipmap-ldpi-v4/icon.png
+SHA1-Digest: QxgIbXczdiH3dm16M8525/Ec3go=
+
+Name: res/mipmap-mdpi-v4/icon.png
+SHA1-Digest: QxgIbXczdiH3dm16M8525/Ec3go=
+
+Name: res/mipmap-xhdpi-v4/icon.png
+SHA1-Digest: 5SXKAJ2qyT1EbTlkfSzY9bddUcQ=
+
+Name: res/mipmap-xhdpi-v4/ouya_icon.png
+SHA1-Digest: xF5tFu+Q9KOv2Qa6ReapJ7EW8Ek=
+
+Name: res/mipmap-xxhdpi-v4/icon.png
+SHA1-Digest: nHUcTrzXGypGseggpMHp+AEmfds=
+
+Name: res/mipmap-xxxhdpi-v4/icon.png
+SHA1-Digest: xF5tFu+Q9KOv2Qa6ReapJ7EW8Ek=
+
+Name: res/raw/adobelogo.gif
+SHA1-Digest: cp6EzjLDVdzLOD69uttcA3OnzH8=
+
+Name: res/raw/debuginfo
+SHA1-Digest: /JXyRiCQcMyqb9JQfR12KFkhq04=
+
+Name: res/raw/icon.jpg
+SHA1-Digest: nANfJreZj8IRns9AUf6IHMlN50E=
+
+Name: res/raw/rgba8888
+SHA1-Digest: 2jmj7l5rSw0yVb/vlWAYkK/YBwk=
+
+Name: res/raw/startga.html
+SHA1-Digest: 0Gq1U1c1hFbPzb+UHZ8RaIpUnts=
+
+Name: res/xml/provider_paths.xml
+SHA1-Digest: Tv5w5/LchGvun/DE3cEpEMnhS2k=
+
+Name: resources.arsc
+SHA1-Digest: i6N+vsR5OKD8z0E9wroYfIfM+5Y=
+
