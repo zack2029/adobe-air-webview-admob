@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" id="viewport" name="viewport">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <style>
+        html, body {
+            min-height: 75%;
+            min-width: 75%;
+            width: 100%;
+            height: 100%;
+            background-color: #fffb00;
+            display: flex;
+            overflow: auto;
+            margin: 0;
+            justify-content: center;
+            align-items: center;
+        }
+        .inside {
+            position: relative;
+            width: 70%;
+            height: 70%;
+            background-color: pink;
+            justify-content: center;
+            align-items: center;
+        }
+        .pinTopLeft {
+            position:absolute;
+            background-color: hsl(110, 100%, 75%);
+            top: 0px;
+            left: 0px;;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .pinTopRight {
+            position:absolute;
+            background-color: #7dffd4;
+            right: 0px;
+            top: 0px;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .pinBottomLeft {
+            position:absolute;
+            background-color: hsl(298, 100%, 75%);
+            left: 0px;
+            bottom: 0px;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            justify-items: center;
+        }
+        #button {
+            position:relative;
+            display: block; 
+            margin: 0 auto;
+            align-self: center;
+            justify-self: center;
+            justify-items: center;
+        }
+    </style>
+</head>
+<body>
+    <script type="text/javascript">
+        function sendToActionScript(id, cmd) {
+            console.log("sendToActionScript");
+            var refresh = window.location.protocol + "//" + window.location.host + window.location.pathname + "?"+id+"="+cmd;
+            window.location = refresh;
+        }
+    </script>
+    <div class="inside">
+        <div class="pinTopLeft">
+            <input id="button" type="button" value="Banner Show" onclick="sendToActionScript('banner','show');" />
+        </div>
+        <div class="pinTopRight">
+            <input id="button" type="button" value="Banner Hide" onclick="sendToActionScript('banner','hide');" />
+        </div>
+        <div class="pinBottomLeft">
+            <input id="button" type="button" value="Inters Show" onclick="sendToActionScript('inters','show');" />
+        </div>
+    </div>
+</body>
+</html>
