@@ -37,6 +37,10 @@ package com.porawee.html5
 	{
 		private var _admob:AdMob = new AdMob();
 		private var webView:StageWebView = null;
+		private var html:HTMLLoader = new HTMLLoader();
+		
+		private var mode:int = 0;// 0 = StageWebView, other = HTMLLoader <-- not work as blank screen
+		private var cache:String = "";
 		
 		public function Main() 
 		{
@@ -47,7 +51,7 @@ package com.porawee.html5
 			// touch or gesture?
 			Multitouch.inputMode = MultitouchInputMode.TOUCH_POINT;
 			
-			// constructor code
+			// banner ads
 			_admob.addEventListener(AdEvent.INIT_OK, onEvent);
 			_admob.addEventListener(AdEvent.INIT_FAIL, onEvent);
 			_admob.addEventListener(AdEvent.BANNER_SHOW_OK, onEvent);
@@ -56,6 +60,7 @@ package com.porawee.html5
 			_admob.addEventListener(AdEvent.BANNER_OPENED, onEvent);
 			_admob.addEventListener(AdEvent.BANNER_CLOSED, onEvent);
 			
+			// interstitial ads
 			_admob.addEventListener(AdEvent.INTERSTITIAL_SHOW_OK, onEvent);
 			_admob.addEventListener(AdEvent.INTERSTITIAL_SHOW_FAIL, onEvent);
 			_admob.addEventListener(AdEvent.INTERSTITIAL_CACHE_OK, onCacheOkEvent);
@@ -63,6 +68,16 @@ package com.porawee.html5
 			_admob.addEventListener(AdEvent.INTERSTITIAL_LEFT_APP, onEvent);
 			_admob.addEventListener(AdEvent.INTERSTITIAL_OPENED, onEvent);
 			_admob.addEventListener(AdEvent.INTERSTITIAL_CLOSED, onEvent);
+			
+			// reward ads
+			_admob.addEventListener(AdEvent.REWARDED_CACHE_FAIL, onEvent);
+			_admob.addEventListener(AdEvent.REWARDED_CACHE_OK, onCacheOkEvent);
+			_admob.addEventListener(AdEvent.REWARDED_CLOSED, onEvent);
+			_admob.addEventListener(AdEvent.REWARDED_COMPLETED, onEvent);
+			_admob.addEventListener(AdEvent.REWARDED_LEFT_APP, onEvent);
+			_admob.addEventListener(AdEvent.REWARDED_OPENED, onEvent);
+			_admob.addEventListener(AdEvent.REWARDED_REWARDED, onEvent);
+			_admob.addEventListener(AdEvent.REWARDED_STARTED, onEvent);
 			_admob.init();
 
 			//Test Ads ID: ca-app-pub-3940256099942544/6300978111
@@ -72,26 +87,42 @@ package com.porawee.html5
 			
 			//Test Interstitial Ads ID: ca-app-pub-3940256099942544/1033173712
 
-			//caching here then show, if need to see it after app launch
+			//caching interstitial here then show, if need to see it after app launch
 			//_admob.cacheInterstitial("ca-app-pub-3940256099942544/1033173712");
+			
+			//caching reward here then show, if need to see it after app launch
+			//_admob.cacheRewarded("ca-app-pub-3940256099942544/5224354917");
 			
 			//LoadWebview
 			var session:String = (new Date()).toDateString();
-			webView = new StageWebView(true);
-			webView.stage = this.stage;
-			webView.viewPort = new Rectangle( 0, stage.stageHeight / 2, stage.stageWidth, stage.stageHeight / 2 );
-			webView.loadURL("https://porwebgl.web.app/_index.html?"+session);
-			//webView.reload();
-			webView.addEventListener(Event.COMPLETE, onCompleteEvent);
-			webView.addEventListener(DataEvent.WEBVIEW_MESSAGE, onWebViewMessageEvent);
-			webView.addEventListener(WebViewDrawEvent.WEBVIEW_DRAW_COMPLETE, onWebViewDrawCompleteEvent);
-			webView.addEventListener(ErrorEvent.ERROR, onErrorEvent);
-			webView.addEventListener(FocusEvent.FOCUS_IN, onFocusInEvent);
-			webView.addEventListener(FocusEvent.FOCUS_IN, onFocusOutEvent);
-			webView.addEventListener(LocationChangeEvent.LOCATION_CHANGE, onLocationChangeEvent);
-			webView.addEventListener(LocationChangeEvent.LOCATION_CHANGING, onLocationChangingEvent);
+			if (mode == 0) {
+				webView = new StageWebView(true);
+				webView.stage = this.stage;
+				webView.viewPort = new Rectangle( 0, stage.stageHeight / 2, stage.stageWidth, stage.stageHeight / 2 );
+				webView.loadURL("https://porwebgl.web.app/_index.html?" + session);
+				
+				webView.addEventListener(Event.COMPLETE, onCompleteEvent);
+				webView.addEventListener(DataEvent.WEBVIEW_MESSAGE, onWebViewMessageEvent);
+				webView.addEventListener(WebViewDrawEvent.WEBVIEW_DRAW_COMPLETE, onWebViewDrawCompleteEvent);
+				webView.addEventListener(ErrorEvent.ERROR, onErrorEvent);
+				webView.addEventListener(FocusEvent.FOCUS_IN, onFocusInEvent);
+				webView.addEventListener(FocusEvent.FOCUS_IN, onFocusOutEvent);
+				webView.addEventListener(LocationChangeEvent.LOCATION_CHANGE, onLocationChangeEvent);
+				webView.addEventListener(LocationChangeEvent.LOCATION_CHANGING, onLocationChangingEvent);
+			} else {
+				html = new HTMLLoader();
+				var urlReq:URLRequest = new URLRequest("https://porwebgl.web.app/_index.html?" + session);
+				html.width = stage.stageWidth;
+				html.height = stage.stageHeight;
+				html.load(urlReq);
+				//html.loadString(sampleHtml()); // <-- test html rendering only
+				stage.addChild(html);
+				html.reload();
+				
+				html.addEventListener(LocationChangeEvent.LOCATION_CHANGE, onLocationChangeEvent);
+			}
 			
-			stage.addEventListener(Event.RESIZE, onResizeEvent);
+			//stage.addEventListener(Event.RESIZE, onResizeEvent);
 		}
 		
 		private function handleAds(id:String, cmd:String):void {
@@ -102,9 +133,17 @@ package com.porawee.html5
 					//expected hide
 					_admob.hide();
 				}
-			} else {
+			} else if (id == "inters") {
 				//expected show interstitial require cache first then show when it ready
-				_admob.cacheInterstitial("ca-app-pub-3940256099942544/1033173712")
+				_admob.cacheInterstitial("ca-app-pub-3940256099942544/1033173712");
+				cache = id;
+			} else if (id == "reward") {
+				//expected show reward require cache first then show when it ready
+				_admob.cacheRewarded("ca-app-pub-3940256099942544/5224354917");
+				cache = id;
+			} else {
+				//other handle
+				trace("e " + id);
 			}
 		}
 		
@@ -127,7 +166,13 @@ package com.porawee.html5
 		private function onCacheOkEvent(ae:AdEvent):void
 		{
 			//showing here
-			_admob.showInterstitial();
+			if (cache == "inters") {
+				_admob.showInterstitial();
+			} else if (cache == "reward") {
+				_admob.showRewarded();
+			} else {
+				trace("no cache");
+			}
 		}
 		
 		//StageWebView events
@@ -163,7 +208,7 @@ package com.porawee.html5
 		
 		public function onLocationChangeEvent(e:LocationChangeEvent):void
 		{
-			if (e.location) {
+			if (e.target) {
 				trace("onLocationChangeEvent " + e.location);
 				var results:Array = e.location.split("?");
 				if (results.length > 1) {
@@ -177,13 +222,117 @@ package com.porawee.html5
 					}
 				}
 			}
-			webView.historyBack();
+			
+			if (mode == 0) { webView.historyBack(); }
+			else { html.historyBack(); }
+			
 			e.preventDefault();
 		}
 		
 		public function onLocationChangingEvent(e:LocationChangeEvent):void
 		{
 			trace("onLocationChangingEvent " + e);
+		}
+		
+		private function sampleHtml():String {
+			var src:String =  '<!DOCTYPE html>' +
+			'<html lang="en">' +
+			'<head>'+
+				'<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" id="viewport" name="viewport">'+
+				'<meta content="text/html; charset=utf-8" http-equiv="Content-Type">'+
+				'<style>'+
+					'html, body {'+
+						'min-height: 75%;'+
+						'min-width: 75%;'+
+						'width: 100%;'+
+						'height: 100%;'+
+						'background-color: #fffb00;'+
+						'display: flex;'+
+						'overflow: auto;'+
+						'margin: 0;'+
+						'justify-content: center;'+
+						'align-items: center;'+
+					'}'+
+					'.inside {'+
+						'position: relative;'+
+						'width: 70%;'+
+						'height: 70%;'+
+						'background-color: pink;'+
+						'justify-content: center;'+
+						'align-items: center;'+
+					'}'+
+					'.pinTopLeft {'+
+						'position:absolute;'+
+						'background-color: hsl(110, 100%, 75%);'+
+						'top: 0px;'+
+						'left: 0px;'+
+						'justify-content: center;'+
+						'align-items: center;'+
+						'text-align: center;'+
+					'}'+
+					'.pinTopRight {'+
+						'position:absolute;'+
+						'background-color: #7dffd4;'+
+						'right: 0px;'+
+						'top: 0px;'+
+						'justify-content: center;'+
+						'align-items: center;'+
+						'text-align: center;'+
+					'}'+
+					'.pinBottomLeft {'+
+						'position:absolute;'+
+						'background-color: hsl(298, 100%, 75%);'+
+						'left: 0px;'+
+						'bottom: 0px;'+
+						'justify-content: center;'+
+						'align-items: center;'+
+						'text-align: center;'+
+						'justify-items: center;'+
+					'}'+
+					'.pinBottomRight {'+
+						'position:absolute;'+
+						'background-color: rgb(255, 128, 128);'+
+						'right: 0px;'+
+						'bottom: 0px;'+
+						'justify-content: center;'+
+						'align-items: center;'+
+						'text-align: center;'+
+						'justify-items: center;'+
+					'}'+
+					'#button {'+
+						'position:relative;'+
+						'display: block;'+
+						'margin: 0 auto;'+
+						'align-self: center;'+
+						'justify-self: center;'+
+						'justify-items: center;'+
+					'}'+
+				'</style>'+
+			'</head>'+
+			'<body>'+
+				'<script type="text/javascript">'+
+					'function sendToActionScript(id, cmd) {'+
+						'var refresh = window.location.protocol + "//" + window.location.host + window.location.pathname + "?"+id+"="+cmd;'+
+						'window.location = refresh;'+
+					'}'+
+				'</script>'+
+				'<div class="inside">'+
+					'<div class="pinTopLeft">'+
+						'<input id="button" type="button" value="Banner Show" onclick="sendToActionScript(\'banner\',\'show\');" />'+
+					'</div>'+
+					'<div class="pinTopRight">'+
+						'<input id="button" type="button" value="Banner Hide" onclick="sendToActionScript(\'banner\',\'hide\');" />'+
+					'</div>'+
+					'<div class="pinBottomLeft">'+
+						'<input id="button\" type="button" value="Inters Show" onclick="sendToActionScript(\'inters\',\'show\');" />'+
+					'</div>'+
+					'<div class="pinBottomRight">'+
+						'<input id="button" type="button" value="Reward Show" onclick="sendToActionScript(\'reward\',\'show\');" />'+
+					'</div>'+
+				'</div>'+
+			'</body>'+
+			'</html>';
+			return src;
 		}
 		
 	}
