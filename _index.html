@@ -28,7 +28,7 @@
             position:absolute;
             background-color: hsl(110, 100%, 75%);
             top: 0px;
-            left: 0px;;
+            left: 0px;
             justify-content: center;
             align-items: center;
             text-align: center;
@@ -46,6 +46,16 @@
             position:absolute;
             background-color: hsl(298, 100%, 75%);
             left: 0px;
+            bottom: 0px;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            justify-items: center;
+        }
+        .pinBottomRight {
+            position:absolute;
+            background-color: rgb(255, 128, 128);
+            right: 0px;
             bottom: 0px;
             justify-content: center;
             align-items: center;
@@ -79,6 +89,9 @@
         </div>
         <div class="pinBottomLeft">
             <input id="button" type="button" value="Inters Show" onclick="sendToActionScript('inters','show');" />
+        </div>
+        <div class="pinBottomRight">
+            <input id="button" type="button" value="Reward Show" onclick="sendToActionScript('reward','show');" />
         </div>
     </div>
 </body>
